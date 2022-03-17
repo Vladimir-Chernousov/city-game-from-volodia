@@ -24,7 +24,8 @@ cities = {
 
 yes_or_no = {
     'ДА': 1,
-    'нет': 0
+    'нет': 0,
+    'Помощь': 2
 }
 # создаем словарь, где для каждого пользователя
 # мы будем хранить его имя
@@ -106,6 +107,8 @@ def play_game(res, req):
         elif result == 0:
             res['response']['text'] = 'Ну и ладно... Пока!!!'
             res['end_session'] = True
+        elif result == 2:
+            res['response']['text'] = 'Игра: "Угадай город". Ваша задача угадать город)'
         elif result == 'москва':
             if sessionStorage[user_id]['city'] == 'москва':
                 res['response'][
@@ -183,6 +186,8 @@ def get_city(req):
         return 1
     if 'нет' in req['request']['nlu']['tokens']:
         return 0
+    if 'помощь' in req['request']['nlu']['entities']:
+        return 2
     for entity in req['request']['nlu']['entities']:
         # если тип YANDEX.GEO то пытаемся получить город(city),
         # если нет, то возвращаем None
