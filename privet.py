@@ -186,7 +186,7 @@ def get_city(req):
         return 1
     if 'нет' in req['request']['nlu']['tokens']:
         return 0
-    if 'помощь' in req['request']['nlu']['entities']:
+    if 'помощь' in req['request']['nlu']['tokens']:
         return 2
     for entity in req['request']['nlu']['entities']:
         # если тип YANDEX.GEO то пытаемся получить город(city),
